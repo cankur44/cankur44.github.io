@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Cankur Web Tarayıcı</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2f4f8;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 400px;
+      margin: 80px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #tarayici, #admin {
+      display: none;
+      padding: 20px;
+    }
+    .admin-card {
+      background: #e8f0fe;
+      padding: 15px;
+      margin: 10px auto;
+      border-radius: 8px;
+      text-align: left;
+      max-width: 500px;
+    }
+    .admin-card h4 {
+      margin: 0 0 8px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" id="login">
+  <h2>🔒 Giriş Yap</h2>
+  <input type="text" id="kullanici" placeholder="Kullanıcı Adı">
+  <input type="password" id="sifre" placeholder="Şifre">
+  <button onclick="girisYap()">Giriş</button>
+  <p id="hata" style="color:red;"></p>
+</div>
+
+<div id="tarayici">
+  <div class="container">
+    <h2>🔎 Web Tarayıcı</h2>
+    <input type="text" id="site" placeholder="Site adı (örnek: youtube, google)">
+    <button onclick="git()">Git</button>
+    <button onclick="cikis()">Çıkış Yap</button>
+  </div>
+</div>
+
+<div id="admin">
+  <div class="container">
+    <h2>🛠 Admin Paneli</h2>
+    <div class="admin-card">
+      <h4>Kullanıcı Yönetimi</h4>
+      <p>Kayıtlı kullanıcı sayısı: 2</p>
+    </div>
+    <div class="admin-card">
+      <h4>Site Giriş Takibi</h4>
+      <p>Son giriş: şimdi</p>
+    </div>
+    <div class="admin-card">
+      <h4>Sunucu Durumu</h4>
+      <p>GitHub Pages - Aktif ✅</p>
+    </div>
+    <button onclick="cikis()">Çıkış Yap</button>
+  </div>
+</div>
+
+<script>
+const kullanicilar = {
+  "admin": "admin123",
+  "cankur": "1234"
+};
+
+function girisYap() {
+  const ad = document.getElementById("kullanici").value.trim();
+  const sif = document.getElementById("sifre").value.trim();
+  const hata = document.getElementById("hata");
+
+  if (kullanicilar[ad] === sif) {
+    document.getElementById("login").style.display = "none";
+    if (ad === "admin") {
+      document.getElementById("admin").style.display = "block";
+    } else {
+      document.getElementById("tarayici").style.display = "block";
+    }
+  } else {
+    hata.textContent = "Hatalı kullanıcı adı veya şifre!";
+  }
+}
+
+function git() {
+  const site = document.getElementById("site").value.toLowerCase().trim();
+  const adresler = {
+    "youtube": "https://www.youtube.com",
+    "google": "https://www.google.com",
+    "facebook": "https://www.facebook.com",
+    "instagram": "https://www.instagram.com"
+  };
+  const url = adresler[site] || `https://www.${site}.com`;
+  window.open(url, "_blank");
+}
+
+function cikis() {
+  location.reload();
+}
+</script>
+
+</body>
+</html>
